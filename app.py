@@ -1,31 +1,18 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 from crawler.lancamentos import Crawler as CrawlerL
-from crawler.filmes import Crawler as CrawlerF
-from crawler.busca import Crawler as CrawlerB
-from crawler.animeq import Crawler as CrawlerAQ
+from crawler.animes import Crawler as CrawlerA
 
 app = Flask(__name__)
 api = Api(app)
-@app.route('/episodios/<busca>')
-def buscar(busca):
-    crawler = CrawlerB(busca)
+
+@app.route('/episodios/lancamento')
+def lancamentoEpi():
+    crawler = CrawlerL()
     return jsonify(crawler.run())
-@app.route('/filmes', methods=['GET'])
-def filmes():
-    crawler = CrawlerF('filmes')
-    return jsonify(crawler.run())
-@app.route('/legendados/lancamentos', methods=['GET'])
-def lancamentosL():
-    crawler = CrawlerL('legendados')
-    return jsonify(crawler.run())
-@app.route('/legendados/<palavra>', methods=['GET'])
-def buscaLegendados(palavra):
-    crawler = CrawlerAQ('legendados', palavra)
-    return jsonify(crawler.run())
-@app.route('/dublados/lancamentos', methods=['GET'])
-def lancamentosD():
-    crawler = CrawlerL('dublados')
+@app.route('/animes/<int:page>')
+def animes(page):
+    crawler = CrawlerA(page)
     return jsonify(crawler.run())
 
 if (__name__ == '__main__'):

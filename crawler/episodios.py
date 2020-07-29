@@ -7,22 +7,15 @@ class Episodio(Resource):
         try:
             episodios = list()
             bs = BeautifulSoup(html, 'html.parser')
-            eps = bs.find_all(class_="listing-videos listing-tube")[0].find_all("li")
-            for ep in eps:
-                infos = ep.find(class_='listing-infos')
-                views = infos.find(class_='views-infos')
-                time = infos.find(class_='time-infos')
-                rating = infos.find(class_='rating-infos')
-                if (not ep.img): continue
+            eps = bs.find_all(class_="ultEpsContainer")[1]
+            if eps is None:
+                eps = bs.find(id="aba_epi")
+            for ep in eps.find_all(class_="ultEpsContainerItem"):
+                link = ep.a
                 episodio = EpisodioModel(
-                    image=ep.img.get('src'),
-                    link=ep.a.get('href'),
-                    name=ep.a.get('title'),
-                    infos={
-                        'views':int(views.text) if views is not None else 0,
-                        'time':time.text if time is not None else "",
-                        'rating':rating.text if rating is not None else ""
-                    }
+                    image=link.img.get('data-lazy-src'),
+                    name=link.get('title'),
+                    link=link.get('href')
                 )
                 episodios.append(episodio.to_dict())
             return episodios

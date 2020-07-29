@@ -3,12 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 from flask_restful import Resource
 from models.anime import AnimeModel
-from utils.alfabeto import Alfabeto
 
 class Crawler(Resource):
-    def __init__(self, url, palavra):
-        self.url = url
-        self.palavra = palavra
+    def __init__(self, page=1):
+        self.page = page
         self.response = dict(data=list(), message=None)
 
     def run(self):
@@ -21,25 +19,24 @@ class Crawler(Resource):
         return self.response
 
     def _crawl(self):
-        base_url = 'https://animeq.online/animes-{}-online/'.format(self.url)
+        base_url = 'https://meusanimes.com/lista-de-animes-online/page/{}/'.format(self.page)
         r = requests.get(base_url)
         self.response['data'] = self._parse(r.text)
 
     def _parse(self, html) -> list:
         try:
             animes = list()
-            # Pega a primeira letra da palavra
-            letra = self.palavra[0]
-            # Verifica se é um dígito
-            if re.search(r"\d", letra) != None:
-                letra = 0
-            else:
-                letra = Alfabeto.posLetra(letra)
             bs = BeautifulSoup(html, 'html.parser')
-            eps = bs.find(id="GTTabs_{}_2472".format(letra))
-            print(eps.prettify())
-            for ep in eps:
-                pass
+            anime = bs.find(class_="ultAnisContainer")
+            for an in anime.find_all(class_="ultAnisContainerItem"):
+                link = an.a
+                ani = AnimeModel(
+                    image=link.img.get('data-lazy-src'),
+                    name=link.get('title'),
+                    link=link.get('href'),
+                    eps=link.find(class_="aniEps").get_text()
+                )
+                animes.append(ani.to_dict())
             return animes
         except Exception as e:
             raise e

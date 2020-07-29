@@ -2,8 +2,7 @@ import requests
 from crawler.episodios import Episodio
 
 class Crawler(Episodio):
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
         self.response = dict(data=list(), message=None)
 
     def run(self):
@@ -16,7 +15,6 @@ class Crawler(Episodio):
         return self.response
 
     def _crawl(self):
-        base_url = 'https://animeq.online/animes-{}/'.format(self.url)
-        payload = {'filtre': 'date'}
-        r = requests.get(base_url, params=payload)
+        base_url = 'https://meusanimes.com'
+        r = requests.get(base_url)
         self.response['data'] = self._parse(r.text)
