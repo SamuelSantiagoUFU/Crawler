@@ -66,6 +66,31 @@
           </tr>
           <tr>
             <th scope="row">GET</th>
+            <td>/anime/{nome}</td>
+            <td>Recupera os detalhes do anime informado</td>
+            <td><strong>{nome}:</strong> Nome do anime <i>(string)</i></td>
+            <td><p>
+              {"data": {<br>
+                <span class="mx-2">"ano": "<i>Ano de lançamento</i>",</span><br>
+                <span class="mx-2">"autor": "<i>Nome do autor</i>",</span><br>
+                <span class="mx-2">"diretor": "<i>Nome do diretor</i>",</span><br>
+                <span class="mx-2">"eps": "<i>Total de episódios disponíveis</i>",</span><br>
+                <span class="mx-2">"estudio": "<i>Nome do estúdio</i>",</span><br>
+                <span class="mx-2">"filmes": "<i>Total de filmes disponíveis</i>",</span><br>
+                <span class="mx-2">"generos": ["<i>Gênero 1</i>",</span><br>
+                    <span class="mx-4">"<i>Gênero 2</i>",</span><br>
+                    <span class="mx-4">"<i>Gênero 3</i>"],</span><br>
+                  <span class="mx-2">"image": "<i>Link da imagem</i>",</span><br>
+                  <span class="mx-2">"name": "<i>Nome do anime</i>",</span><br>
+                  <span class="mx-2">"ovas_especiais": "<i>Total de OVAs ou especiais disponíveis</i>",</span><br>
+                  <span class="mx-2">"sinopse": "<i>Sinopse do anime</i>",</span><br>
+                  <span class="mx-2">"status": "<i>Status do anime</i>"},</span><br>
+                "message": "Anime carregado com sucesso!"}
+              </p>
+              <span class="text-success">200 OK</span></td>
+          </tr>
+          <tr>
+            <th scope="row">GET</th>
             <td>/anime/{nome}/episodios/{page}<br>/anime/{nome}/episodios/{page}/{pages}</td>
             <td>Recupera os episódios do anime informado</td>
             <td><strong>{nome}:</strong> Nome do anime <i>(string)</i><br><strong>{page}:</strong> Página atual <i>(int)</i><br><strong>{pages}:</strong> Páginas para serem mostradas de uma vez só <i>(int)</i></td>
