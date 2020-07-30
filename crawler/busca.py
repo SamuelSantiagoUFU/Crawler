@@ -1,7 +1,7 @@
 import requests
-from crawler.episodios import Episodio
+from base.animes import Animes
 
-class Crawler(Episodio):
+class Crawler(Animes):
     def __init__(self, busca):
         self.busca = busca
         self.response = dict(data=list(), message=None)
@@ -16,7 +16,7 @@ class Crawler(Episodio):
         return self.response
 
     def _crawl(self):
-        base_url = 'https://animeq.online/'
+        base_url = 'https://meusanimes.com/'
         payload = {'s': self.busca}
         r = requests.get(base_url, params=payload)
-        self.response['data'] = self._parse(r.text)
+        self.response['data'] = self._parse(r.text, "loopAnimes")

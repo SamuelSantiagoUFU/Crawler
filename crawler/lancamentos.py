@@ -1,7 +1,7 @@
 import requests
-from crawler.episodios import Episodio
+from base.episodios import Episodios
 
-class Crawler(Episodio):
+class Crawler(Episodios):
     def __init__(self):
         self.response = dict(data=list(), message=None)
 
