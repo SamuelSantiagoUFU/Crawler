@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_restful import Api
 from crawler.lancamentos import Crawler as CrawlerL
@@ -22,5 +23,6 @@ def animes(page, pages = 1):
 def busca(busca, page = 1, pages = 1):
     crawler = CrawlerB(busca, page, pages)
     return jsonify(crawler.run())
-if (__name__ == '__main__'):
-    app.run(debug=True)
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
