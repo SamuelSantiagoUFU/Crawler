@@ -17,8 +17,10 @@ def animes(page, pages = 1):
     crawler = CrawlerA(page, pages)
     return jsonify(crawler.run())
 @app.route('/animes/<string:busca>')
-def busca(busca):
-    crawler = CrawlerB(busca)
+@app.route('/animes/<string:busca>/<int:page>')
+@app.route('/animes/<string:busca>/<int:page>/<int:pages>')
+def busca(busca, page = 1, pages = 1):
+    crawler = CrawlerB(busca, page, pages)
     return jsonify(crawler.run())
 if (__name__ == '__main__'):
     app.run(debug=True)
