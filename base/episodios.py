@@ -7,9 +7,11 @@ class Episodios(Resource):
         try:
             episodios = list()
             bs = BeautifulSoup(html, 'html.parser')
-            eps = bs.find_all(class_=container)[1]
-            if eps is None:
+            eps = bs.find_all(class_=container)
+            if len(eps) == 0:
                 eps = bs.find(id="aba_epi")
+            else:
+                eps = eps[1]
             for ep in eps.find_all(class_="ultEpsContainerItem"):
                 link = ep.a
                 episodio = EpisodioModel(

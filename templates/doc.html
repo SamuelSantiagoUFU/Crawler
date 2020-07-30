@@ -64,6 +64,19 @@
               "message":"18 animes carregados!"}</p>
               <span class="text-success">200 OK</span></td>
           </tr>
+          <tr>
+            <th scope="row">GET</th>
+            <td>/anime/{nome}/{page}<br>/anime/{nome}/{page}/{pages}</td>
+            <td>Recupera os episódios do anime informado</td>
+            <td><strong>{nome}:</strong> Nome do anime <i>(string)</i><br><strong>{page}:</strong> Página atual <i>(int)</i><br><strong>{pages}:</strong> Páginas para serem mostradas de uma vez só <i>(int)</i></td>
+            <td><p>{"data":[<br>
+              <span class="mx-2">{"image":"<i>Link da imagem</i>",</span><br>
+              <span class="mx-2">"link":"<i>Link do episódio no site</i>",</span><br>
+              <span class="mx-2">"name":"<i>Nome do episódio</i>"}<br></span>
+              ],<br>
+              "message":"25 episódios carregados!"}</p>
+              <span class="text-success">200 OK</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
