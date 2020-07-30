@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animes List</title>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <h1 class="display-4">Rotas da API</h1>
+      <p class="lead">Essa API recupera dados dos animes de <a href="https://meusanimes.com" class="text-decoration-none">https://meusanimes.com</a><br>Cada página atualmente contém 18 animes</p>
+      <hr class="my-4">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Method</th>
+            <th scope="col">Endpoint</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Parâmetros</th>
+            <th scope="col">Retorno</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">GET</th>
+            <td>/episodios/lancamento</td>
+            <td>Recupera os episódios mais recentes lançados</td>
+            <td><i>Null</i></td>
+            <td><p>{"data":[<br>
+              <span class="mx-2">{"image":"<i>Link da imagem</i>",</span><br>
+              <span class="mx-2">"link":"<i>Link do episódio no site</i>",</span><br>
+              <span class="mx-2">"name":"<i>Nome do episódio</i>"}<br></span>
+              ],<br>
+              "message":"25 episódios carregados!"}</p>
+              <span class="text-success">200 OK</span></td>
+          </tr>
+          <tr>
+            <th scope="row">GET</th>
+            <td>/animes/{page}<br>/animes/{page}/{pages}</td>
+            <td>Recupera todos animes, divididos por página</td>
+            <td><strong>{page}:</strong> Página atual <i>(int)</i><br><strong>{pages}:</strong> Páginas para serem mostradas de uma vez só <i>(int)</i></td>
+            <td><p>{"data":[<br>
+              <span class="mx-2">{"eps":"<i>Total de episódios disponíveis</i>",</span><br>
+              <span class="mx-2">"image":"<i>Link da imagem</i>",</span><br>
+              <span class="mx-2">"link":"<i>Link do anime no site</i>",</span><br>
+              <span class="mx-2">"name":"<i>Nome do anime</i>"}<br></span>
+              ],<br>
+              "message":"18 animes carregados!"}</p>
+              <span class="text-success">200 OK</span></td>
+          </tr>
+          <tr>
+            <th scope="row">GET</th>
+            <td>/animes/{busca}<br>/animes/{busca}/{page}<br>/animes/{busca}/{page}/{pages}</td>
+            <td>Recupera todos animes que satisfazem a busca, divididos por página</td>
+            <td><strong>{busca}:</strong> Nome ou parte do nome de um anime para a busca <i>(string)</i><br><strong>{page}:</strong> Página atual <i>(int)</i><br><strong>{pages}:</strong> Páginas para serem mostradas de uma vez só <i>(int)</i></td>
+            <td><p>{"data":[<br>
+              <span class="mx-2">{"eps":"<i>Total de episódios disponíveis</i>",</span><br>
+              <span class="mx-2">"image":"<i>Link da imagem</i>",</span><br>
+              <span class="mx-2">"link":"<i>Link do anime no site</i>",</span><br>
+              <span class="mx-2">"name":"<i>Nome do anime</i>"}<br></span>
+              ],<br>
+              "message":"18 animes carregados!"}</p>
+              <span class="text-success">200 OK</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
