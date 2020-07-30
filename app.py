@@ -3,6 +3,7 @@ from flask import Flask, jsonify, render_template
 from flask_restful import Api
 from crawler.lancamentos import Crawler as CrawlerL
 from crawler.animes import Crawler as CrawlerA
+from crawler.anime_desc import Crawler as CrawlerDESC
 from crawler.episodios import Crawler as CrawlerEP
 from crawler.busca import Crawler as CrawlerB
 
@@ -15,8 +16,12 @@ def doc():
 def lancamentoEpi():
     crawler = CrawlerL()
     return jsonify(crawler.run()), 200
-@app.route('/anime/<string:anime>/<int:page>')
-@app.route('/anime/<string:anime>/<int:page>/<int:pages>')
+@app.route('/anime/<string:anime>')
+def animeDesc(anime):
+    crawler = CrawlerDESC(anime)
+    return jsonify(crawler.run()), 200
+@app.route('/anime/<string:anime>/episodios/<int:page>')
+@app.route('/anime/<string:anime>/episodios/<int:page>/<int:pages>')
 def episodiosAnime(anime, page=1, pages=1):
     crawler = CrawlerEP(anime, page, pages)
     return jsonify(crawler.run()), 200
