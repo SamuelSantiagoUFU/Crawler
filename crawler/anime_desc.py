@@ -4,10 +4,11 @@ import re
 from bs4 import BeautifulSoup
 from flask_restful import Resource
 from models.anime import AnimeModel
+from utils.urls import urls
 
 class Crawler(Resource):
     def __init__(self, anime):
-        self.anime = anime
+        self.anime = re.sub(r"\s+|\+", "-", anime)
         self.response = dict(data=list(), message=None)
 
     def run(self):
@@ -20,13 +21,16 @@ class Crawler(Resource):
         return self.response
 
     def _crawl(self):
-        base_url = 'https://meusanimes.com/assistir-gratis/{}'
-        r = requests.get(base_url.format(self.anime))
-        if (r.url != base_url.format(self.anime)):
-            base_url = re.search(r"https://meusanimes.com/[\w+-]+/[\w+-]+", r.url).string
-            r = requests.get(base_url.format(self.anime))
+        base_url = 'https://meusanimes.com/{}/{}'
+        for url in urls:
+            r = requests.get(base_url.format(url, self.anime))
+            if r.status_code == 200:
+                break
+        if r.status_code != 200:
+            self.response['message'] = 'Não foi encontrado nenhum anime!'
+            return
         self.response['data'] = self._parse(r.text)
-        del self.response['data']['link']
+        self.response['data']['link'] = r.url
         self.response['message'] = 'Anime carregado com sucesso!'
 
     def _parse(self, html):
