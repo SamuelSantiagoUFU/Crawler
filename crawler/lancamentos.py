@@ -18,3 +18,4 @@ class Crawler(Episodios):
         base_url = 'https://meusanimes.com'
         r = requests.get(base_url)
         self.response['data'] = self._parse(r.text)
+        self.response['message'] = '{} episódios carregados!'.format(len(self.response['data']))

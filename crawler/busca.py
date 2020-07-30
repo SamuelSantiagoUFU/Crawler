@@ -23,3 +23,4 @@ class Crawler(Animes):
         for page in range(self.page, self.page + self.pages_per_view):
             r = requests.get(base_url.format(page), params=payload)
             self.response['data'] += self._parse(r.text, "loopAnimes")
+        self.response['message'] = '{} animes carregados!'.format(len(self.response['data']))
